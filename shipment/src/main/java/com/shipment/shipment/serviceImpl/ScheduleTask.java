@@ -15,7 +15,7 @@ public class ScheduleTask {
     //This job will set the status automatically to DELIVERED at the date of delivery
     @Autowired
     private ShipmentRepository shipmentRepository;
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 0 0 * * *")
     public void executeDeliverUpdate(){
         List<Shipment> shipments = shipmentRepository.findByDeliveryDate(LocalDate.now().toString());
         for (Shipment shipment : shipments)
