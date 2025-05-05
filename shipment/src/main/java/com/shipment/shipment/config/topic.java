@@ -13,4 +13,10 @@ public class topic {
     }
     @Bean
     public NewTopic shipmentCancelled(){return TopicBuilder.name("shipment-cancelled").build();}
+
+    @Bean
+    public NewTopic shipmentDelivered (){return TopicBuilder.name("shipment-delivered").build();}
+
+    @Bean
+    public NewTopic orderShipment (){return TopicBuilder.name("shipment-order").build();}
 }

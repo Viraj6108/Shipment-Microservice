@@ -15,6 +15,6 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Integer> {
     @Query(nativeQuery = true, name = "select * from shipment s where shipment.orderId : orderId")
     Shipment findByOrderId(@Param("orderId") Integer orderId);
 
-    @Query(value = "SELECT * FROM shipment s WHERE s.delivery_date = :deliveryDate", nativeQuery = true)
-    List<Shipment> findByDeliveryDate(@Param("deliveryDate") String deliveryDate);
+    @Query(value = "SELECT * FROM shipment s WHERE s.delivery_date = :deliveryDate and s.status=status", nativeQuery = true)
+    List<Shipment> findByDeliveryDateAndStatus(@Param("deliveryDate") String deliveryDate , String SHIPPED);
 }

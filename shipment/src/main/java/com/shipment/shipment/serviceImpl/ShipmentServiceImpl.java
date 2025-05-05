@@ -83,5 +83,18 @@ public class ShipmentServiceImpl implements ShipmentService {
        throw new ShipmentException("we deliver only Mumbai ,pune and kolhapur location");
     }
 
+    @KafkaListener(topics = "shipment-detail",groupId = "shipment-group")
+    public void getPaymentDetails(String orderId) throws ShipmentException
+    {
+    Integer shipment = gson.fromJson(orderId,Integer.class);
+    Shipment shipmentDetails = shipmentRepository.findByOrderId(shipment);
+    if(shipmentDetails.equals(null))
+        throw new ShipmentException("Shipment not found with order Id");
+    String shipmentJson = gson.toJson(shipmentDetails);
+    String key = "shipment";
+    int partition = 1;
+    kafkaTemplate.send("order-detail",partition,key,shipmentJson);
+    System.out.println(shipmentJson +" "+ key);
 
+    }
 }
